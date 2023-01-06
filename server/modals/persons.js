@@ -1,14 +1,20 @@
-const mongoose = require('mongoose');
 
-const dataSchema = new mongoose.Schema({
-    name: {
-        required: true,
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// Define collection and schema for Business
+let Persons = new Schema({
+    first_name: {
         type: String
     },
-    age: {
-        required: true,
-        type: Number
+    last_name: {
+        type: String
+    },
+    gmail: {
+        type: String
     }
-})
+}, {
+    collection: 'persons'
+});
 
-module.exports = mongoose.model('Data', dataSchema)
+module.exports = mongoose.model('Persons', Persons);
