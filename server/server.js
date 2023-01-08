@@ -1,25 +1,28 @@
-require("dotenv").config();
+
 const express = require("express");
 const cors = require('cors')
+const dbConnect = require("./db/dbConnect");
 const routes = require("./routes/routes");
+const users = require("./routes/users");
 
-const mongoose = require("mongoose");
-mongoose.set("strictQuery", false);
-const mongoString = process.env.MONGODB_URI;
-mongoose.connect(mongoString);
-const database = mongoose.connection;
-
-database.on("error", (error) => {
-  console.log(error);
-});
-
-database.once("connected", () => {
-  console.log("Database Connected");
-});
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+dbConnect();
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+  );
+  next();
+});
 
 app.get("/", function (req, res) {
   res.send("home !!!");
@@ -30,6 +33,8 @@ app.get("/hello", function (req, res) {
 });
 
 app.use("/api", routes);
+
+app.use("/api", users);
 
 app.listen(5000, (res) => {
   console.log(`Server Started at ${5000}`);

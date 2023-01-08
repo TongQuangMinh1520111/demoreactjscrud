@@ -53,7 +53,6 @@ router.post("/update/:id", (req, res) => {
   Person.findById(req.params.id, function (err, person) {
     if (!person) res.status(404).send("data is not found");
     else {
-      console.log(person);
       person.first_name = req.body.first_name;
       person.last_name = req.body.last_name;
       person.gmail = req.body.gmail;
@@ -69,10 +68,13 @@ router.post("/update/:id", (req, res) => {
   });
 });
 
-
 //Delete by ID Method
 router.delete("/delete/:id", (req, res) => {
-  res.send("Delete by ID API");
+  Person.findByIdAndRemove({_id: req.params.id}, function(err, person){
+    if(err) res.json(err);
+    else res.json('Successfully removed');
 });
+});
+
 
 module.exports = router;

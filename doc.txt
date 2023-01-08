@@ -1,0 +1,5 @@
+ 
+//server 
+
+npm install --save bcrypt => for hash password register
+npm i jsonwebtoken -s => for match password signin
