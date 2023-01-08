@@ -16,6 +16,7 @@ export const userLogin = (user) => {
       cookies.set("TOKEN", res.data.token, {
         path: "/",
       });
+      console.log(res.data.token)
 
       window.location.href = "/auth";
     });
