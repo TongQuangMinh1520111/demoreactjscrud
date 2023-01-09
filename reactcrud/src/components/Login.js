@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
+import AccountModule from "../modules/account.module";
 import { userLogin } from "../redux/actions";
 
 
 const Login = () => {
+
+  useEffect(()=> {
+    // loading
+    // let token = localStorage.getItem('token');
+    // // if( !token ) { 
+    // //   // ddas ve login
+    // // } else {
+    // //   // kieem tra tocken con hieu luc ko
+    // // }
+    // console.log(token)
+    // if( token ) {
+    //   window.location.href = '/auth'
+    // }
+  }, [])
+
   const [inputField, setInputField] = useState({
-    username: "",
+    // email: "",
     password: "",
   });
+
+  const emailRef = createRef();
 
   const handleChange = (event) => {
     setInputField({
@@ -15,9 +33,16 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    userLogin(inputField);
+    inputField.email = emailRef.current.value
+    let userLogin = await AccountModule.login(inputField);
+    if( userLogin.success ) {
+      if ('cal')
+      window.location.href = "/auth";
+    } else {
+      alert( userLogin.errMsg )
+    }
   };
 
   return (
@@ -26,10 +51,11 @@ const Login = () => {
 
       <label>Username</label>
       <input
-        name="username"
+        ref={emailRef}
+        name="email"
         placeholder="Username"
-        value={inputField.username}
-        onChange={handleChange}
+        value={inputField.email}
+        // onChange={handleChange}
       />
       <br />
 
