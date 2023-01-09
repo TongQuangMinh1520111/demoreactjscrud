@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import Cookies from "universal-cookie";
-import { userCheckToken } from "../redux/actions";
+import AccountModule from "../modules/account.module";
 
 const cookies = new Cookies();
 const token = cookies.get("TOKEN");
 const AuthLayout = () => {
-  useEffect(() => {
-    userCheckToken(token);
-  },[]);
 
   if (sessionStorage.length) {
     // console.log(sessionStorage);
@@ -15,10 +12,9 @@ const AuthLayout = () => {
     // console.log(obj.email);
   }
 
-  const logout = () => {
-    cookies.remove("TOKEN", { path: "/" });
-    window.localStorage.clear()
-    window.location.href = "/";
+  const logout = async() => {
+    let registerUser = await AccountModule.logout({});
+    registerUser();
   };
   return (
     <div>

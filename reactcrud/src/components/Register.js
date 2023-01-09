@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { userRegister } from "../redux/actions";
+import AccountModule from "../modules/account.module";
 
 const Register = (props) => {
   const [inputField, setInputField] = useState({
@@ -16,9 +16,20 @@ const Register = (props) => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    userRegister(inputField);
+    // userRegister(inputField);
+    let registerUser = await AccountModule.register({});
+    if( registerUser.success ) {
+      let userLogin = await AccountModule.login()
+      if( userLogin.success ) {
+        window.location.href = "/auth";
+      } else {
+        alert( userLogin.errMsg )
+      }
+    } else {
+      // show error
+    }
   };
 
   return (
