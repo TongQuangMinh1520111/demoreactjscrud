@@ -3,3 +3,8 @@
 
 npm install --save bcrypt => for hash password register
 npm i jsonwebtoken -s => for match password signin
+
+
+localhost:3000/auth?callback_url=trang muon den sau dang nhap
+sessionStorage set trang muon ddeesn
+login xong thif lay ra 
