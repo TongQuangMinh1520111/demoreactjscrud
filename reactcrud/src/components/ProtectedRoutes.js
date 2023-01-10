@@ -6,7 +6,6 @@ const cookies = new Cookies();
 const token = cookies.get("TOKEN");
 
 const ProtectedRoutes =  () => {
-  console.log('nani')
   return token ? <Outlet /> : <Navigate to="/login" exact />;
 };
 

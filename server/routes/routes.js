@@ -3,20 +3,6 @@ const router = express.Router();
 const Person = require("../modals/persons");
 //Post Method
 router.post("/post", async (req, res) => {
-  // const data = new Person({
-  //     first_name: req.body.first_name,
-  //     last_name: req.body.last_name,
-  //     gmail: req.body.gmail
-  // })
-
-  // try {
-  //     const dataToSave = await data.save();
-  //     res.status(200).json(dataToSave)
-  // }
-  // catch (error) {
-  //     res.status(400).json({message: error.message})
-  // }
-
   let person = new Person(req.body);
   person
     .save()

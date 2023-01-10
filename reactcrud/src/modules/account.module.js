@@ -1,63 +1,76 @@
-'use strict';
+"use strict";
+
 import axios from "axios";
 import Cookies from "universal-cookie";
 
 const AccountModule = {
-  login: async(user)=> {
+  login: async (user) => {
     try {
       let login = await axios.post("http://localhost:5000/api/login", user);
-      if( login ) {
+      if (login) {
         // check success hay ko
         // return login.data.user
         const cookies = new Cookies();
         cookies.set("TOKEN", login.data.token, {
           path: "/",
         });
-        localStorage.setItem('token', login.data.token)
-        console.log(login.data.user)
-    
+        localStorage.setItem("token", login.data.token);
+        console.log(login.data.user);
+
         sessionStorage.setItem("user", JSON.stringify(login.data.user));
-        // var obj = JSON.parse(sessionStorage.getItem('user')); 
+        // var obj = JSON.parse(sessionStorage.getItem('user'));
         // console.log(obj.email);
         // window.location.href = "/auth";
         return {
-          success: true
-        }
+          success: true,
+        };
       } else {
         return {
           success: false,
-          errMsg: "Login khoong thanh cong "
-        }
+          errMsg: "Login khoong thanh cong ",
+        };
       }
     } catch (err) {
-      console.log(err)
       return {
         success: false,
-        errMsg: err.message
-      }
+        errMsg: err.message,
+      };
     }
   },
 
-  register: async(user)=> {
-
-    /**
-     * return { success }
-     */
+  register: async (user) => {
     try {
-
+      let register = await axios.post(
+        "http://localhost:5000/api/register",
+        user
+      );
+      if (register) {
+        return {
+          success: true,
+        };
+      } else {
+        return {
+          success: false,
+          errMsg: "Login khoong thanh cong ",
+        };
+      }
     } catch (err) {
-
+      return {
+        success: false,
+        errMsg: err.message,
+      };
     }
+  
   },
 
-  logout: async()=>{
+  logout: async () => {
     const cookies = new Cookies();
     cookies.remove("TOKEN", { path: "/" });
-    window.localStorage.clear()
+    window.localStorage.clear();
     window.location.href = "/login";
   },
 
-  verifyToken: async(token) => {
+  verifyToken: async (token) => {
     try {
       // gọi api kiểm tra token họp lêj
       // set user vao session store
@@ -65,7 +78,7 @@ const AccountModule = {
     } catch (err) {
       return false;
     }
-  }
-}
+  },
+};
 
 export default AccountModule;

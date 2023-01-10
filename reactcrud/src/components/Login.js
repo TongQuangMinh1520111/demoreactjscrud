@@ -38,7 +38,7 @@ const Login = () => {
     let userLogin = await AccountModule.login(inputField);
     if( userLogin.success ) {
       if ('cal')
-      window.location.href = "/auth";
+      window.location.href = "/home";
     } else {
       alert( userLogin.errMsg )
     }

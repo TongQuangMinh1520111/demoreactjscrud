@@ -19,9 +19,9 @@ const Register = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     // userRegister(inputField);
-    let registerUser = await AccountModule.register({});
+    let registerUser = await AccountModule.register(inputField);
     if( registerUser.success ) {
-      let userLogin = await AccountModule.login()
+      let userLogin = await AccountModule.login(inputField)
       if( userLogin.success ) {
         window.location.href = "/auth";
       } else {

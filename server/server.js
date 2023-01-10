@@ -4,13 +4,15 @@ const cors = require('cors')
 const dbConnect = require("./db/dbConnect");
 const routes = require("./routes/routes");
 const users = require("./routes/users");
+const productRouter = require("./routes/products");
 
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'))
 dbConnect();
-
+//chan cors error
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -36,6 +38,9 @@ app.use("/api", routes);
 
 app.use("/api", users);
 
+app.use("/api", productRouter);
+
 app.listen(5000, (res) => {
   console.log(`Server Started at ${5000}`);
+  process.env.HOST_NAME = 'http://localhost:5000'
 });
