@@ -83,7 +83,6 @@ users.post("/login", async (req, res) => {
       });
     }
   } catch (err) {
-    console.log("🚀 ~ file: users.js:62 ~ users.post ~ err", err);
     res.status(400).send({
       message: err.message,
     });
@@ -93,6 +92,37 @@ users.post("/login", async (req, res) => {
   res.send({
     success: false,
   });
+});
+users.get("/profile", async (req, res) => {
+  const token =
+    req.body.token || req.query.token || req.headers["authorization"];
+  if (!token) {
+    return res.status(403).send("A token is required for authentication");
+  }
+  try {
+    const decoded = jwt.verify(token, "RANDOM-TOKEN");
+    console.log("decoded", decoded);
+    if ((req.user = decoded)) {
+      let profile = await Users.findOne({
+        email: req.user.userEmail,
+      });
+      console.log("profile", profile);
+      if (!profile) {
+        return res.status(401).send({
+          message: "profile not found",
+        });
+      } else {
+        const { password, ...profileData } = profile.toJSON();
+        console.log(profileData);
+        return res.status(200).send({
+          message: "get profile Successful",
+          profile: profileData,
+        });
+      }
+    }
+  } catch (err) {
+    return res.status(401).send("Invalid Token");
+  }
 });
 
 users.post("/checktoken", async (req, res) => {
