@@ -18,7 +18,7 @@ console.log(listProducts)
     {
       listProducts.map(item => {
         return <li className="items" key={item._id}>
-          <figure><img src={"http://localhost:5000/images/pants1.jpg"} alt={item.name}/></figure>
+          <figure><img src={item.image} alt={item.name}/></figure>
         </li>
       })
     }

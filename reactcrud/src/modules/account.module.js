@@ -8,8 +8,6 @@ const AccountModule = {
     try {
       let login = await axios.post("http://localhost:5000/api/login", user);
       if (login) {
-        // check success hay ko
-        // return login.data.user
         const cookies = new Cookies();
         cookies.set("TOKEN", login.data.token, {
           path: "/",
@@ -18,9 +16,6 @@ const AccountModule = {
         console.log(login.data.user);
 
         sessionStorage.setItem("user", JSON.stringify(login.data.user));
-        // var obj = JSON.parse(sessionStorage.getItem('user'));
-        // console.log(obj.email);
-        // window.location.href = "/auth";
         return {
           success: true,
         };
@@ -28,6 +23,39 @@ const AccountModule = {
         return {
           success: false,
           errMsg: "Login khoong thanh cong ",
+        };
+      }
+    } catch (err) {
+      return {
+        success: false,
+        errMsg: err.message,
+      };
+    }
+  },
+  getProfile: async () => {
+    try {
+      const cookies = new Cookies();
+      const token = cookies.get("TOKEN");
+      if (token) {
+        let profile = await axios.get("http://localhost:5000/api/profile", {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: ` ${token}`,
+          },
+        });
+        if (profile) {
+          return profile;
+        } else {
+          return {
+            success: false,
+            errMsg: "get profile khoong thanh cong ",
+          };
+        }
+      } else {
+        return {
+          success: false,
+          errMsg: "get profile khoong thanh cong ",
         };
       }
     } catch (err) {
@@ -60,7 +88,6 @@ const AccountModule = {
         errMsg: err.message,
       };
     }
-  
   },
 
   logout: async () => {
