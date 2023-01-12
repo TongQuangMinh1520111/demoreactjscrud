@@ -1,15 +1,17 @@
 import React, { useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+
 import { Route, Routes, useLocation } from "react-router-dom";
 import Register from "./components/Register";
 import Login from "./components/Login";
-import AuthLayout from "./components/AuthLayout";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import Permisison from "./permission/permission";
 import AccountModule from "./modules/account.module";
 import Header from "./components/header.component";
 import { Auth } from "./utils/Auth";
 import Home from "./components/home.component";
+import ProductDetail from "./components/products/ProductDetail";
 
 const App = () => {
   const locationChange = useLocation();
@@ -40,21 +42,19 @@ const App = () => {
                 type: "CHECK_RENDER_TRUE",
               });
             }
-          }
-          else {
-            window.location.href = '/home'
+          } else {
+            window.location.href = "/home";
           }
         }
-      }
-      else {
-        let token = localStorage.getItem('token');
-        if( !token ) {
-          if ( !Permisison[locationChange.pathname] ) {
+      } else {
+        let token = localStorage.getItem("token");
+        if (!token) {
+          if (!Permisison[locationChange.pathname]) {
             dispatch({
               type: "CHECK_RENDER_TRUE",
             });
           } else {
-            window.location.href = '/login'
+            window.location.href = "/login";
           }
         } else {
           dispatch({
@@ -64,7 +64,7 @@ const App = () => {
       }
     }
     checkUserInfo();
-  },[]);
+  }, []);
 
   return (
     <>
@@ -76,6 +76,10 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route element={<ProtectedRoutes />}>
               <Route path="/home" element={<Home />} />
+              <Route
+                path="/products/:slug"
+                element={<ProductDetail />}
+              ></Route>
             </Route>
           </Routes>
         )}

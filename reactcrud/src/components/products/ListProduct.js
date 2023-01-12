@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from "react";
 import ProductModule from "../../modules/products.module";
+import ProductItem from "./ProductItem";
 
-const ListProduct = () => {
+const ListProduct = ({ product }) => {
   const [listProducts, setListProducts] = useState([]);
   useEffect(() => {
     const getAllProduct = async () => {
       let allProduct = await ProductModule.getAllProduct();
-      if(allProduct) {
+      if (allProduct) {
         setListProducts(allProduct.data);
-    }
-  };
-  getAllProduct();
-  },[]);
-console.log(listProducts)
-  return <>
-  <ul className="list_product">
-    {
-      listProducts.map(item => {
-        return <li className="items" key={item._id}>
-          <figure><img src={"http://localhost:5000/images/pants1.jpg"} alt={item.name}/></figure>
-        </li>
-      })
-    }
-  </ul>
-  </>;
+      }
+    };
+    getAllProduct();
+  }, []);
+  console.log(listProducts);
+  return (
+    <>
+      <ul className="list_product">
+        {listProducts.map((item) => {
+          return <ProductItem key={item._id} product={item} />;
+        })}
+      </ul>
+    </>
+  );
 };
 
 export default ListProduct;
