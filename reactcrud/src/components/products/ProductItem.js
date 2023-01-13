@@ -23,10 +23,14 @@ const ProductItem = ({ product }) => {
         <h3>{product.name}</h3>
         <p className="brand">{product.brand}</p>
         <p className="price">${product.price}</p>
-        <button className="primary-button" type="button" onClick={addToCartHandler}>
-          Add to cart
-        </button>
       </Link>
+      <button
+        className="primary-button"
+        type="button"
+        onClick={addToCartHandler}
+      >
+        Add to cart
+      </button>
     </li>
   );
 };

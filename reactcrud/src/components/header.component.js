@@ -1,52 +1,54 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Auth } from "../utils/Auth";
+import { Auth } from "../context/Auth";
 
 const Header = () => {
-  const {dispatch } = useContext(Auth);
-  const handleClickRender = () =>{
+  const { dispatch } = useContext(Auth);
+  const handleClickRender = () => {
     dispatch({
-      type:'CHECK_RENDER_FALSE',
-    })
-  }
+      type: "CHECK_RENDER_FALSE",
+    });
+  };
   return (
-    <header>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <Link to="/" className="navbar-brand">
-          React CRUD Example
-        </Link>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link
-                to={"/home"}
-                className="nav-link"
-                onClick={handleClickRender}
-              >
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to={"/register"}
-                className="nav-link"
-                onClick={handleClickRender}
-              >
-                Register
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to={"/login"}
-                className="nav-link"
-                onClick={handleClickRender}
-              >
-                Login
-              </Link>
-            </li>
-          </ul>
+    <header id="header">
+      <div className="inner">
+        <div className="header_cont">
+          <h1 id="logo">
+            <Link to="/" className="navbar-brand">
+              React CRUD Example
+            </Link>
+          </h1>
+          <div id="gnavi">
+            <ul className="menu">
+              <li className="item">
+                <Link to={"/"} F onClick={handleClickRender}>
+                  Home
+                </Link>
+              </li>
+              <li className="item">
+                <Link to={"/products"} F onClick={handleClickRender}>
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link to={"/cart"} onClick={handleClickRender}>
+                  Cart
+                </Link>
+              </li>
+              <li className="item">
+                <Link to={"/register"} onClick={handleClickRender}>
+                  Register
+                </Link>
+              </li>
+              <li className="item">
+                <Link to={"/login"} onClick={handleClickRender}>
+                  Login
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-      </nav>
+      </div>
     </header>
   );
 };

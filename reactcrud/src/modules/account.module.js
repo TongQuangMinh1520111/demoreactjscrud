@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 
 import axios from "axios";
 import Cookies from "universal-cookie";
@@ -70,15 +70,15 @@ const AccountModule = {
     window.location.href = "/login";
   },
 
-  verifyToken: async (token) => {
-    try {
-      // gọi api kiểm tra token họp lêj
-      // set user vao session store
-      return true;
-    } catch (err) {
-      return false;
-    }
-  },
+  // verifyToken: async (token) => {
+  //   try {
+  //     // gọi api kiểm tra token họp lêj
+  //     // set user vao session store
+  //     return true;
+  //   } catch (err) {
+  //     return false;
+  //   }
+  // },
 };
 
 export default AccountModule;

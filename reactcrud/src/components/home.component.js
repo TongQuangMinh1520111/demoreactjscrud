@@ -1,11 +1,12 @@
-import React from 'react';
-import ListProduct from './products/ListProduct';
+import React from "react";
 
 const Home = () => {
   return (
-    <>
-    <ListProduct/>
-    </>
+    <div id="p_home">
+      <div className="inner">
+        <p>this is home page</p>
+      </div>
+    </div>
   );
 };
 

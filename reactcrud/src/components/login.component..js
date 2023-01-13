@@ -54,7 +54,7 @@ const Login = () => {
         name="email"
         placeholder="Username"
         value={inputField.email}
-        // onChange={handleChange}
+        onChange={handleChange}
       />
       <br />
 

@@ -14,7 +14,6 @@ const ProductDetail = () => {
     };
     getAllProduct();
   }, []);
-  
 
   const productSlug = useParams();
   const product = listProduct.find((prod) => prod.slug === productSlug.slug);
@@ -27,8 +26,8 @@ const ProductDetail = () => {
     if (product.countInStock < quantity) {
       return toast.error("Sorry. Product is out of stock");
     }
-    console.log("cart")
     dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+    window.location.href = "/cart";
   };
   return (
     <>
@@ -39,13 +38,12 @@ const ProductDetail = () => {
           </div>
           <div className="">
             <div className="">
-              {/* <Image
-            src={product.image}
-            alt={product.name}
-            width={640}
-            height={640}
-            layout="responsive"
-          ></Image> */}
+              <img
+                src={product.image}
+                alt={product.name}
+                width={400}
+                height={400}
+              />
             </div>
             <div>
               <ul>
@@ -72,7 +70,9 @@ const ProductDetail = () => {
                     {product.countInStock > 0 ? "In stock" : "Unavailable"}
                   </div>
                 </div>
-                <button className="" onClick={addToCartHandler}>Add to cart</button>
+                <button className="" onClick={addToCartHandler}>
+                  Add to cart
+                </button>
               </div>
             </div>
           </div>
