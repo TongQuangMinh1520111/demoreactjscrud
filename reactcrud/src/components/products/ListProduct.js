@@ -13,7 +13,7 @@ const ListProduct = ({ product }) => {
     };
     getAllProduct();
   }, []);
-  console.log(listProducts);
+
   return (
     <>
       <ul className="list_product">

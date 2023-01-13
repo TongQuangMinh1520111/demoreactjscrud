@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./utils/Auth";
+import { StoreProvider } from "./context/Store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <StoreProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </StoreProvider>
   </BrowserRouter>
 );
 

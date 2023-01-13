@@ -5,7 +5,6 @@ const productRouter = express.Router();
 
 productRouter.post("/postproducts", (req,res) => {
   let products = new Products(req.body);
-  console.log(products);
   products
     .save()
     .then((products) => {
